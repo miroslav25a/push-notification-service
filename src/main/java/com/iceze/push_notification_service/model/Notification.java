@@ -1,13 +1,18 @@
 package com.iceze.push_notification_service.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Notification {
 	private String username;
 	private String type;
 	private String title;
 	private String body;
 	private String url;
+	@JsonProperty("file_name")
 	private String fileName;
+	@JsonProperty("file_type")
 	private String fileType;
+	@JsonProperty("file_url")
 	private String fileUrl;
 
 	public Notification() {
