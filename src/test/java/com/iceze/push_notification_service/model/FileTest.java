@@ -13,7 +13,6 @@ public class FileTest {
 	@Test
 	public void toStringReturns() {
 		File file = File.builder().withBody("test body")
-								  .withType(PushType.FILE)
 								  .withFileName("john.jpg")
 								  .withFileType("image/jpeg")
 								  .withFileUrl("https://dl.pushbulletusercontent.com/foGfub1jtC6yYcOMACk1AbHwTrTKvrDc/john.jpg")
@@ -30,29 +29,12 @@ public class FileTest {
 	}
 	
 	@Test
-	public void validateTypeNullShould() {
-		File file = File.builder().withBody("test body")
-				  .withType(null)
-				  .withFileName("john.jpg")
-				  .withFileType("image/jpeg")
-				  .withFileUrl("https://dl.pushbulletusercontent.com/foGfub1jtC6yYcOMACk1AbHwTrTKvrDc/john.jpg")
-				  .build();
-		
-		assertThatExceptionOfType(InvalidNotificationException.class)
-	    	.isThrownBy(() -> file.validate())
-	    	.withMessage("Notification's type is invalid")
-	    	.withStackTraceContaining("InvalidNotificationException")
-	    	.withNoCause();
-	}
-	
-	@Test
 	public void validateFileNameNullShould() {
 		File file = File.builder().withBody("test body")
-				  .withType(PushType.FILE)
-				  .withFileName(null)
-				  .withFileType("image/jpeg")
-				  .withFileUrl("https://dl.pushbulletusercontent.com/foGfub1jtC6yYcOMACk1AbHwTrTKvrDc/john.jpg")
-				  .build();
+				  				  .withFileName(null)
+				  				  .withFileType("image/jpeg")
+				  				  .withFileUrl("https://dl.pushbulletusercontent.com/foGfub1jtC6yYcOMACk1AbHwTrTKvrDc/john.jpg")
+				  				  .build();
 		
 		assertThatExceptionOfType(InvalidNotificationException.class)
 	    	.isThrownBy(() -> file.validate())
@@ -64,7 +46,6 @@ public class FileTest {
 	@Test
 	public void validateFileNameEmptyStringShould() {
 		File file = File.builder().withBody("test body")
-				  .withType(PushType.FILE)
 				  .withFileName("")
 				  .withFileType("image/jpeg")
 				  .withFileUrl("https://dl.pushbulletusercontent.com/foGfub1jtC6yYcOMACk1AbHwTrTKvrDc/john.jpg")
@@ -80,11 +61,10 @@ public class FileTest {
 	@Test
 	public void validateFileNameSpaceShould() {
 		File file = File.builder().withBody("test body")
-				  .withType(PushType.FILE)
-				  .withFileName(" ")
-				  .withFileType("image/jpeg")
-				  .withFileUrl("https://dl.pushbulletusercontent.com/foGfub1jtC6yYcOMACk1AbHwTrTKvrDc/john.jpg")
-				  .build();
+				  				  .withFileName(" ")
+				  				  .withFileType("image/jpeg")
+				  				  .withFileUrl("https://dl.pushbulletusercontent.com/foGfub1jtC6yYcOMACk1AbHwTrTKvrDc/john.jpg")
+				  				  .build();
 		
 		assertThatExceptionOfType(InvalidNotificationException.class)
 	    	.isThrownBy(() -> file.validate())
@@ -96,11 +76,10 @@ public class FileTest {
 	@Test
 	public void validateFileTypeNullShould() {
 		File file = File.builder().withBody("test body")
-				  .withType(PushType.FILE)
-				  .withFileName("john.jpg")
-				  .withFileType(null)
-				  .withFileUrl("https://dl.pushbulletusercontent.com/foGfub1jtC6yYcOMACk1AbHwTrTKvrDc/john.jpg")
-				  .build();
+				  				  .withFileName("john.jpg")
+				  				  .withFileType(null)
+				  				  .withFileUrl("https://dl.pushbulletusercontent.com/foGfub1jtC6yYcOMACk1AbHwTrTKvrDc/john.jpg")
+				  				  .build();
 		
 		assertThatExceptionOfType(InvalidNotificationException.class)
 	    	.isThrownBy(() -> file.validate())
@@ -112,11 +91,10 @@ public class FileTest {
 	@Test
 	public void validateFileTypeEmptyStringShould() {
 		File file = File.builder().withBody("test body")
-				  .withType(PushType.FILE)
-				  .withFileName("john.jpg")
-				  .withFileType("")
-				  .withFileUrl("https://dl.pushbulletusercontent.com/foGfub1jtC6yYcOMACk1AbHwTrTKvrDc/john.jpg")
-				  .build();
+				  				  .withFileName("john.jpg")
+				  				  .withFileType("")
+				  				  .withFileUrl("https://dl.pushbulletusercontent.com/foGfub1jtC6yYcOMACk1AbHwTrTKvrDc/john.jpg")
+				  				  .build();
 		
 		assertThatExceptionOfType(InvalidNotificationException.class)
 	    	.isThrownBy(() -> file.validate())
@@ -128,11 +106,10 @@ public class FileTest {
 	@Test
 	public void validateFileTypeSpaceShould() {
 		File file = File.builder().withBody("test body")
-				  .withType(PushType.FILE)
-				  .withFileName("john.jpg")
-				  .withFileType(" ")
-				  .withFileUrl("https://dl.pushbulletusercontent.com/foGfub1jtC6yYcOMACk1AbHwTrTKvrDc/john.jpg")
-				  .build();
+				  				  .withFileName("john.jpg")
+				  				  .withFileType(" ")
+				  				  .withFileUrl("https://dl.pushbulletusercontent.com/foGfub1jtC6yYcOMACk1AbHwTrTKvrDc/john.jpg")
+				  				  .build();
 		
 		assertThatExceptionOfType(InvalidNotificationException.class)
 	    	.isThrownBy(() -> file.validate())
@@ -144,11 +121,10 @@ public class FileTest {
 	@Test
 	public void validateFileUrlNullShould() {
 		File file = File.builder().withBody("test body")
-				  .withType(PushType.FILE)
-				  .withFileName("john.jpg")
-				  .withFileType("image/jpeg")
-				  .withFileUrl(null)
-				  .build();
+				  				  .withFileName("john.jpg")
+				  				  .withFileType("image/jpeg")
+				  				  .withFileUrl(null)
+				  				  .build();
 		
 		assertThatExceptionOfType(InvalidNotificationException.class)
 	    	.isThrownBy(() -> file.validate())
@@ -160,11 +136,10 @@ public class FileTest {
 	@Test
 	public void validateFileUrlEmptyStringShould() {
 		File file = File.builder().withBody("test body")
-				  .withType(PushType.FILE)
-				  .withFileName("john.jpg")
-				  .withFileType("image/jpeg")
-				  .withFileUrl("")
-				  .build();
+				  				  .withFileName("john.jpg")
+				  				  .withFileType("image/jpeg")
+				  				  .withFileUrl("")
+				  				  .build();
 		
 		assertThatExceptionOfType(InvalidNotificationException.class)
 	    	.isThrownBy(() -> file.validate())
@@ -176,11 +151,10 @@ public class FileTest {
 	@Test
 	public void validateFileUrlSpaceShould() {
 		File file = File.builder().withBody("test body")
-				  .withType(PushType.FILE)
-				  .withFileName("john.jpg")
-				  .withFileType("image/jpeg")
-				  .withFileUrl(" ")
-				  .build();
+				  				  .withFileName("john.jpg")
+				  				  .withFileType("image/jpeg")
+				  				  .withFileUrl(" ")
+				  				  .build();
 		
 		assertThatExceptionOfType(InvalidNotificationException.class)
 	    	.isThrownBy(() -> file.validate())
@@ -192,11 +166,10 @@ public class FileTest {
 	@Test
 	public void validateBodyNullShould() {
 		File file = File.builder().withBody(null)
-				  .withType(PushType.FILE)
-				  .withFileName("john.jpg")
-				  .withFileType("image/jpeg")
-				  .withFileUrl("https://dl.pushbulletusercontent.com/foGfub1jtC6yYcOMACk1AbHwTrTKvrDc/john.jpg")
-				  .build();
+				  				  .withFileName("john.jpg")
+				  				  .withFileType("image/jpeg")
+				  				  .withFileUrl("https://dl.pushbulletusercontent.com/foGfub1jtC6yYcOMACk1AbHwTrTKvrDc/john.jpg")
+				  				  .build();
 		
 		assertThatExceptionOfType(InvalidNotificationException.class)
 	    	.isThrownBy(() -> file.validate())
@@ -208,11 +181,10 @@ public class FileTest {
 	@Test
 	public void validateBodyEmptyStringShould() {
 		File file = File.builder().withBody("")
-				  .withType(PushType.FILE)
-				  .withFileName("john.jpg")
-				  .withFileType("image/jpeg")
-				  .withFileUrl("https://dl.pushbulletusercontent.com/foGfub1jtC6yYcOMACk1AbHwTrTKvrDc/john.jpg")
-				  .build();
+				  				  .withFileName("john.jpg")
+				  				  .withFileType("image/jpeg")
+				  				  .withFileUrl("https://dl.pushbulletusercontent.com/foGfub1jtC6yYcOMACk1AbHwTrTKvrDc/john.jpg")
+				  				  .build();
 		
 		assertThatExceptionOfType(InvalidNotificationException.class)
 	    	.isThrownBy(() -> file.validate())
@@ -224,11 +196,10 @@ public class FileTest {
 	@Test
 	public void validateBodySpaceShould() {
 		File file = File.builder().withBody(" ")
-				  .withType(PushType.FILE)
-				  .withFileName("john.jpg")
-				  .withFileType("image/jpeg")
-				  .withFileUrl("https://dl.pushbulletusercontent.com/foGfub1jtC6yYcOMACk1AbHwTrTKvrDc/john.jpg")
-				  .build();
+				  				  .withFileName("john.jpg")
+				  				  .withFileType("image/jpeg")
+				  				  .withFileUrl("https://dl.pushbulletusercontent.com/foGfub1jtC6yYcOMACk1AbHwTrTKvrDc/john.jpg")
+				  				  .build();
 		
 		assertThatExceptionOfType(InvalidNotificationException.class)
 	    	.isThrownBy(() -> file.validate())
@@ -240,11 +211,10 @@ public class FileTest {
 	@Test
 	public void validateShould() {
 		File file = File.builder().withBody("test body")
-				  .withType(PushType.FILE)
-				  .withFileName("john.jpg")
-				  .withFileType("image/jpeg")
-				  .withFileUrl("https://dl.pushbulletusercontent.com/foGfub1jtC6yYcOMACk1AbHwTrTKvrDc/john.jpg")
-				  .build();
+				  				  .withFileName("john.jpg")
+				  				  .withFileType("image/jpeg")
+				  				  .withFileUrl("https://dl.pushbulletusercontent.com/foGfub1jtC6yYcOMACk1AbHwTrTKvrDc/john.jpg")
+				  				  .build();
 		
 		assertThatCode(() -> file.validate()).doesNotThrowAnyException();
 	}

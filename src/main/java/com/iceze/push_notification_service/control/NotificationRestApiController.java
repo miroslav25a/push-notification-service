@@ -38,7 +38,7 @@ public class NotificationRestApiController {
         @ApiResponse(code = 500, message = "Internal Server Error", response = String.class)
     })
 	@RequestMapping(value = "/api/notification/", method = RequestMethod.POST)
-	public ResponseEntity<?> createUser(@RequestBody final Notification notification, final UriComponentsBuilder uriComponentsBuilder) {
+	public ResponseEntity<?> createNotification(@RequestBody final Notification notification, final UriComponentsBuilder uriComponentsBuilder) {
 		LOG.info("Creating Notification: {}", notification);
 
 		try {
