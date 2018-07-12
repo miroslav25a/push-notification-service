@@ -61,7 +61,7 @@ public class BasicUserService implements UserService {
 	
 	@Override
 	public synchronized Optional<User> updateUser(User user) {
-		if(this.users.contains(user)) {
+		if(!this.users.contains(user)) {
 			throw new InvalidUserException("User not found");
 		}
 		User existingUser = this.findByUsername(user.getUsername()).get();

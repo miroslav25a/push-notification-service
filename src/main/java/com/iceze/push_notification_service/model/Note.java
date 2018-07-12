@@ -12,7 +12,7 @@ public class Note extends Push {
 	}
 	
 	private Note(final Builder builder) {
-		this.type = builder.type;
+		this.type = PushType.NOTE;
 		this.title = builder.title;
 		this.body = builder.body;
 	}
@@ -22,11 +22,7 @@ public class Note extends Push {
 	}
 
 	@Override
-	public void validate() {
-		if(this.type == null) {
-			throw new InvalidNotificationException("Notification's type is invalid");
-		}
-		
+	public void validate() {		
 		if(StringUtils.isBlank(this.title)) {
 			throw new InvalidNotificationException("Notification's title is invalid");
 		}
@@ -47,17 +43,11 @@ public class Note extends Push {
         return new Builder();
 	}
 	
-	public static final class Builder {
-		private PushType type;
-		private String title;
-		private String body;
+	public static class Builder {
+		protected String title;
+		protected String body;
 		
-		private Builder() {  
-		}
-		
-		public Builder withType(final PushType type) {
-            this.type = type;
-            return this;
+		protected Builder() {  
 		}
 		
 		public Builder withTitle(final String title) {
@@ -74,5 +64,4 @@ public class Note extends Push {
             return new Note(this);
 		}
 	}
-
 }

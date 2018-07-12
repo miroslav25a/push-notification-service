@@ -18,7 +18,7 @@ public class File extends Push {
 	}
 	
 	private File(final Builder builder) {
-		this.type = builder.type;
+		this.type = PushType.FILE;
 		this.body = builder.body;
 		this.fileName = builder.fileName;
 		this.fileType = builder.fileType;
@@ -44,10 +44,6 @@ public class File extends Push {
 	 */
 	@Override
 	public void validate() {
-		if(this.type == null) {
-			throw new InvalidNotificationException("Notification's type is invalid");
-		}
-		
 		if(StringUtils.isBlank(this.fileName)) {
 			throw new InvalidNotificationException("Notification's file_name is invalid");
 		}
@@ -77,18 +73,12 @@ public class File extends Push {
 	}
 	
 	public static final class Builder {
-		private PushType type;
 		private String fileName;
 		private String fileType;
 		private String fileUrl;
 		private String body;
 		
 		private Builder() {  
-		}
-		
-		public Builder withType(final PushType type) {
-            this.type = type;
-            return this;
 		}
 		
 		public Builder withFileName(final String fileName) {

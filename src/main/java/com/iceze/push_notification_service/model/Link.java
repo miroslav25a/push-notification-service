@@ -11,7 +11,7 @@ public class Link extends Note {
 	}
 	
 	private Link(final Builder builder) {
-		this.type = builder.type;
+		this.type = PushType.LINK;
 		this.title = builder.title;
 		this.body = builder.body;
 		this.url = builder.url;
@@ -30,22 +30,15 @@ public class Link extends Note {
 		}
 	}
 	
-	public static Builder linkBuilder() {
+	public static Builder builder() {
         return new Builder();
 	}
 	
-	public static final class Builder {
-		private PushType type;
-		private String title;
-		private String body;
+	public static final class Builder extends Note.Builder {
 		private String url;
 		
 		private Builder() {  
-		}
-		
-		public Builder withType(final PushType type) {
-            this.type = type;
-            return this;
+			super();
 		}
 		
 		public Builder withTitle(final String title) {

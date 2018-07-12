@@ -12,9 +12,8 @@ public class LinkTest {
 
 	@Test
 	public void toStringReturns() {
-		Link link = Link.linkBuilder().withBody("test body")
+		Link link = Link.builder().withBody("test body")
 								  .withTitle("test title")
-								  .withType(PushType.LINK)
 								  .withUrl("http://www.test.com")
 								  .build();
 		
@@ -26,9 +25,8 @@ public class LinkTest {
 	
 	@Test
 	public void validateBodyNullShould() {
-		Link link = Link.linkBuilder().withBody(null)
+		Link link = Link.builder().withBody(null)
 									  .withTitle("test title")
-									  .withType(PushType.LINK)
 									  .withUrl("http://www.test.com")
 									  .build();
 		
@@ -41,9 +39,8 @@ public class LinkTest {
 	
 	@Test
 	public void validateBodyEmptyStringShould() {
-		Link link = Link.linkBuilder().withBody("")
+		Link link = Link.builder().withBody("")
 				  					  .withTitle("test title")
-				  					  .withType(PushType.LINK)
 				  					  .withUrl("http://www.test.com")
 				  					  .build();
 		
@@ -56,9 +53,8 @@ public class LinkTest {
 	
 	@Test
 	public void validateBodySpaceShould() {
-		Link link = Link.linkBuilder().withBody(" ")
+		Link link = Link.builder().withBody(" ")
 				  .withTitle("test title")
-				  .withType(PushType.LINK)
 				  .withUrl("http://www.test.com")
 				  .build();
 		
@@ -71,9 +67,8 @@ public class LinkTest {
 	
 	@Test
 	public void validateTitleNullShould() {
-		Link link = Link.linkBuilder().withBody("test body")
+		Link link = Link.builder().withBody("test body")
 									  .withTitle(null)
-									  .withType(PushType.LINK)
 									  .withUrl("http://www.test.com")
 									  .build();
 		
@@ -86,9 +81,8 @@ public class LinkTest {
 	
 	@Test
 	public void validateTitleEmptyStringShould() {
-		Link link = Link.linkBuilder().withBody("test body")
+		Link link = Link.builder().withBody("test body")
 									  .withTitle("")
-									  .withType(PushType.LINK)
 									  .withUrl("http://www.test.com")
 									  .build();
 		
@@ -101,9 +95,8 @@ public class LinkTest {
 	
 	@Test
 	public void validateTitleSpaceShould() {
-		Link link = Link.linkBuilder().withBody("test body")
+		Link link = Link.builder().withBody("test body")
 									  .withTitle(" ")
-									  .withType(PushType.LINK)
 									  .withUrl("http://www.test.com")
 									  .build();
 		
@@ -115,25 +108,9 @@ public class LinkTest {
 	}
 	
 	@Test
-	public void validateTypeNullShould() {
-		Link link = Link.linkBuilder().withBody("test body")
-				  					  .withTitle("test title")
-				  					  .withType(null)
-				  					  .withUrl("http://www.test.com")
-				  					  .build();
-		
-		assertThatExceptionOfType(InvalidNotificationException.class)
-	    	.isThrownBy(() -> link.validate())
-	    	.withMessage("Notification's type is invalid")
-	    	.withStackTraceContaining("InvalidNotificationException")
-	    	.withNoCause();
-	}
-	
-	@Test
 	public void validateUrlNullShould() {
-		Link link = Link.linkBuilder().withBody("test body")
+		Link link = Link.builder().withBody("test body")
 				  					  .withTitle("test title")
-				  					  .withType(PushType.LINK)
 				  					  .withUrl(null)
 				  					  .build();
 		
@@ -146,9 +123,8 @@ public class LinkTest {
 	
 	@Test
 	public void validateUrlEmptyStringShould() {
-		Link link = Link.linkBuilder().withBody("test body")
+		Link link = Link.builder().withBody("test body")
 				  					  .withTitle("test title")
-				  					  .withType(PushType.LINK)
 				  					  .withUrl("")
 				  					  .build();
 		
@@ -161,9 +137,8 @@ public class LinkTest {
 	
 	@Test
 	public void validateUrlSpaceShould() {
-		Link link = Link.linkBuilder().withBody("test body")
+		Link link = Link.builder().withBody("test body")
 				  					  .withTitle("test title")
-				  					  .withType(PushType.LINK)
 				  					  .withUrl(" ")
 				  					  .build();
 		
@@ -176,9 +151,8 @@ public class LinkTest {
 	
 	@Test
 	public void validateShould() {
-		Link link = Link.linkBuilder().withBody("test body")
+		Link link = Link.builder().withBody("test body")
 				  					  .withTitle("test title")
-				  					  .withType(PushType.LINK)
 				  					  .withUrl("http://www.test.com")
 				  					  .build();
 		

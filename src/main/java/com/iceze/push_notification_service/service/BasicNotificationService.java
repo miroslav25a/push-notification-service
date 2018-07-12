@@ -1,6 +1,7 @@
 package com.iceze.push_notification_service.service;
 
 import static com.iceze.push_notification_service.util.Constants.PUSH_TYPE_NAME_NOTE;
+import static com.iceze.push_notification_service.util.Constants.PUSH_URL;
 import static com.iceze.push_notification_service.util.Constants.PUSH_TYPE_NAME_LINK;
 import static com.iceze.push_notification_service.util.Constants.PUSH_TYPE_NAME_FILE;
 
@@ -25,7 +26,6 @@ import com.iceze.push_notification_service.model.Link;
 import com.iceze.push_notification_service.model.Note;
 import com.iceze.push_notification_service.model.Notification;
 import com.iceze.push_notification_service.model.PushResponse;
-import com.iceze.push_notification_service.model.PushType;
 import com.iceze.push_notification_service.model.User;
 
 @Service("notificationService")
@@ -50,7 +50,7 @@ public class BasicNotificationService implements NotificationService {
 		HttpEntity<String> entity = new HttpEntity<String>(requestBody, headers);
 		RestTemplate restTemplate = this.createClient();
 		
-		ResponseEntity<PushResponse> response = restTemplate.exchange("https://api.pushbullet.com/v2/pushes", HttpMethod.POST, entity, PushResponse.class);
+		ResponseEntity<PushResponse> response = restTemplate.exchange(PUSH_URL, HttpMethod.POST, entity, PushResponse.class);
 		if(response.getStatusCode() == HttpStatus.OK) {
 			User toUpdateUser = User.builder().withAccessToken(user.getAccessToken())
 											  .withCreationTime(user.getCreationTime())
@@ -79,21 +79,18 @@ public class BasicNotificationService implements NotificationService {
 		}
 		
 		switch (notification.getType()) {
-			case PUSH_TYPE_NAME_NOTE:	Note note = Note.builder().withType(PushType.NOTE)
-																  .withTitle(notification.getTitle())
+			case PUSH_TYPE_NAME_NOTE:	Note note = Note.builder().withTitle(notification.getTitle())
 																  .withBody(notification.getBody())
 																  .build();
 										note.validate();
 										break;
-			case PUSH_TYPE_NAME_LINK: 	Link link = Link.linkBuilder().withType(PushType.LINK)
-																	  .withTitle(notification.getTitle())
-																	  .withBody(notification.getBody())
-																	  .withUrl(notification.getUrl())
-																	  .build();
+			case PUSH_TYPE_NAME_LINK: 	Link link = Link.builder().withTitle(notification.getTitle())
+																  .withBody(notification.getBody())
+																  .withUrl(notification.getUrl())
+																  .build();
 										link.validate();
 										break;
-			case PUSH_TYPE_NAME_FILE: 	File file = File.builder().withType(PushType.FILE)
-																  .withBody(notification.getBody())
+			case PUSH_TYPE_NAME_FILE: 	File file = File.builder().withBody(notification.getBody())
 																  .withFileName(notification.getFileName())
 																  .withFileType(notification.getFileType())
 																  .withFileUrl(notification.getFileUrl())
@@ -116,21 +113,18 @@ public class BasicNotificationService implements NotificationService {
 		String body = "";
 		
 		switch (notification.getType()) {
-			case PUSH_TYPE_NAME_NOTE:	Note note = Note.builder().withType(PushType.NOTE)
-																  .withTitle(notification.getTitle())
+			case PUSH_TYPE_NAME_NOTE:	Note note = Note.builder().withTitle(notification.getTitle())
 																  .withBody(notification.getBody())
 																  .build();
 										body = note.toString();
 										break;
-			case PUSH_TYPE_NAME_LINK: 	Link link = Link.linkBuilder().withType(PushType.LINK)
-																	  .withTitle(notification.getTitle())
-																	  .withBody(notification.getBody())
-																	  .withUrl(notification.getUrl())
-																	  .build();
+			case PUSH_TYPE_NAME_LINK: 	Link link = Link.builder().withTitle(notification.getTitle())
+																  .withBody(notification.getBody())
+																  .withUrl(notification.getUrl())
+																  .build();
 										body = link.toString();
 										break;
-			case PUSH_TYPE_NAME_FILE: 	File file = File.builder().withType(PushType.FILE)
-																  .withBody(notification.getBody())
+			case PUSH_TYPE_NAME_FILE: 	File file = File.builder().withBody(notification.getBody())
 																  .withFileName(notification.getFileName())
 																  .withFileType(notification.getFileType())
 																  .withFileUrl(notification.getFileUrl())
@@ -143,7 +137,7 @@ public class BasicNotificationService implements NotificationService {
 		return body;
 	}
 	
-	private RestTemplate createClient() {
+	protected RestTemplate createClient() {
 		return new RestTemplate();
 	}
 }
