@@ -10,29 +10,25 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.common.collect.Sets;
+import com.iceze.push_notification_service.dao.UserDao;
 import com.iceze.push_notification_service.model.User;
 
 @Service("userService")
 public class BasicUserService implements UserService {
-	private Set<User> users;
-	
-	public BasicUserService() {
-		if(users == null) {
-			users = Sets.newHashSet();
-		}
-	}
+	@Autowired
+	private UserDao userDao;
 	
 	@Override
 	public Optional<Set<User>> findAllUsers() {
-		return Optional.ofNullable(this.users);
+		return this.userDao.findAllUsers();
 	}
 
 	@Override
 	public Optional<User> saveUser(final User user) {
-		if(isExistingUser(user.getUsername(), this.users)) {
+		if(isExistingUser(user.getUsername(), this.userDao.findAllUsers().get())) {
 			throw new ExistingUserException("User with username " + user.getUsername() + " already exists");
 		}
 		
@@ -42,15 +38,15 @@ public class BasicUserService implements UserService {
 				 							 .withCreationTime(creationTime)
 				 							 .withNumOfNotificationsPushed(new Integer(0))
 				 							 .build();
-		this.users.add(savedUser);
+		this.userDao.saveUser(savedUser);
 		
 		return Optional.ofNullable(savedUser);
 	}
 
 	@Override
 	public Optional<User> findByUsername(final String username) {
-		List<User> filteredUsers = users.stream().filter(u -> u.getUsername().equals(username))
-					 							 .collect(Collectors.toList());
+		List<User> filteredUsers = this.userDao.findAllUsers().get().stream().filter(u -> u.getUsername().equals(username))
+					 							 					.collect(Collectors.toList());
 		
 		if(!filteredUsers.isEmpty()) {
 			return Optional.of(filteredUsers.get(0));
@@ -61,7 +57,7 @@ public class BasicUserService implements UserService {
 	
 	@Override
 	public synchronized Optional<User> updateUser(User user) {
-		if(!this.users.contains(user)) {
+		if(!this.userDao.findAllUsers().get().contains(user)) {
 			throw new InvalidUserException("User not found");
 		}
 		User existingUser = this.findByUsername(user.getUsername()).get();
@@ -74,8 +70,7 @@ public class BasicUserService implements UserService {
 										  .withUsername(existingUser.getUsername())
 									      .build();
 		
-		this.users.remove(existingUser);
-		this.users.add(toUpdateUser);
+		this.userDao.saveUser(toUpdateUser);
 		
 		return Optional.ofNullable(toUpdateUser);
 	}
@@ -94,7 +89,7 @@ public class BasicUserService implements UserService {
 			throw new InvalidUserException("User's access token is invalid");
 		}
 
-		if(isExistingUser(user.getUsername(), this.users)) {
+		if(isExistingUser(user.getUsername(), this.userDao.findAllUsers().get())) {
 			throw new ExistingUserException("User with username " + user.getUsername() + " already exists");
 		}
 	}
