@@ -8,6 +8,7 @@ BBC technical test
 
 ### Pre-request
 * Maven installation
+* Pushbullet account and API token
 
 ### Build setup
 Checkout the project from Github. Open a command window, as administrator, navigate to the root directory of the project, and run
