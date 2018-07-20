@@ -34,5 +34,4 @@ public class UserDaoImpl implements UserDao {
 		
 		return Optional.of(user);
 	}
-
 }
